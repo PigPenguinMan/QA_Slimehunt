@@ -3,7 +3,7 @@
 QA 테스트케이스·버그리포트 작성 연습을 위해 만든 턴제 전투 웹게임입니다.
 **원본 버전**과 결함을 수정한 **수정 버전(v2)**을 한 페이지에서 전환하며 직접 테스트할 수 있습니다.
 
-▶ **플레이 / 테스트하기: [https://pigpenguinman.github.io/QA_Slimehunt/] **
+▶ **플레이 / 테스트하기: [https://pigpenguinman.github.io/QA_Slimehunt/]**
 
 ## 사용 방법
 
