@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>슬라임 사냥 - 원본 / 수정본</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#e8f1ee;--ink:#1f2d2a;--card:#fbfdfc;--accent:#1d6b5c;--warn:#b8860b;--line:#b9cfc8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14201d;--ink:#e3efeb;--card:#1c2c28;--accent:#5cc4ad;--warn:#e0b341;--line:#34504a}}
+:root[data-theme="dark"]{--bg:#14201d;--ink:#e3efeb;--card:#1c2c28;--accent:#5cc4ad;--warn:#e0b341;--line:#34504a}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;display:flex;flex-direction:column}
+header{max-width:520px;width:100%;margin:0 auto;padding:12px 16px 8px}
+.tabs{display:flex;gap:8px}
+.tabs button,.reset{font:inherit;cursor:pointer;border:1px solid var(--line);border-radius:8px;padding:8px 14px;background:var(--card);color:var(--ink);font-weight:600}
+.tabs button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.reset{margin-left:auto;font-weight:500}
+button:focus-visible{outline:3px solid var(--warn);outline-offset:2px}
+#desc{margin:8px 0 0;font-size:.85rem;opacity:.75}
+.frame{flex:1;max-width:520px;width:100%;margin:0 auto;min-height:0}
+iframe{width:100%;height:100%;border:0;display:none;background:transparent}
+iframe.on{display:block}
+</style>
+</head>
+<body>
+<header>
+  <div class="tabs" role="tablist">
+    <button role="tab" id="t0" aria-selected="true">원본 버전</button>
+    <button role="tab" id="t1" aria-selected="false">수정 버전 (v2)</button>
+    <button class="reset" id="reset" title="현재 버전을 처음 상태로 되돌립니다">초기화</button>
+  </div>
+  <p id="desc"></p>
+</header>
+<div class="frame">
+  <iframe id="f0" class="on" title="슬라임 사냥 원본" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, viewport-fit=cover&quot;&gt;
+&lt;title&gt;슬라임 사냥 - QA 연습용 2&lt;/title&gt;
+&lt;style&gt;
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#e8f1ee;--ink:#1f2d2a;--card:#fbfdfc;--accent:#1d6b5c;--warn:#b8860b;--bad:#b23a3a;--line:#b9cfc8}
+@media (prefers-color-scheme:dark){:root:not([data-theme=&quot;light&quot;]){--bg:#14201d;--ink:#e3efeb;--card:#1c2c28;--accent:#5cc4ad;--warn:#e0b341;--bad:#e27a7a;--line:#34504a}}
+:root[data-theme=&quot;dark&quot;]{--bg:#14201d;--ink:#e3efeb;--card:#1c2c28;--accent:#5cc4ad;--warn:#e0b341;--bad:#e27a7a;--line:#34504a}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:&quot;Pretendard&quot;,&quot;Noto Sans KR&quot;,&quot;Malgun Gothic&quot;,sans-serif;line-height:1.5}
+main{max-width:460px;margin:0 auto;padding:24px 16px}
+h1{font-size:1.5rem;margin:0 0 4px}
+p.sub{margin:0 0 16px;opacity:.7;font-size:.9rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat{font-size:.95rem}
+.bar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:2px}
+.bar i{display:block;height:100%;background:var(--accent)}
+.bar.e i{background:var(--bad)}
+button{font:inherit;cursor:pointer;color:var(--bg);background:var(--accent);border:1px solid var(--accent);border-radius:8px;padding:8px 12px;font-weight:600}
+button.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+button:focus-visible{outline:3px solid var(--warn);outline-offset:2px}
+ul{list-style:none;margin:0;padding:0;max-height:200px;overflow-y:auto}
+li{padding:4px 0;border-bottom:1px dashed var(--line);font-size:.9rem}
+#state{font-weight:700;margin:0 0 8px}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;main&gt;
+&lt;h1&gt;슬라임 사냥&lt;/h1&gt;
+&lt;p class=&quot;sub&quot;&gt;QA 연습용. 전투, 아이템, 상점, 성장 시스템을 테스트해 보세요.&lt;/p&gt;
+
+&lt;div class=&quot;card&quot;&gt;
+  &lt;div class=&quot;grid&quot;&gt;
+    &lt;div class=&quot;stat&quot;&gt;레벨 &lt;b id=&quot;lv&quot;&gt;&lt;/b&gt; · EXP &lt;b id=&quot;exp&quot;&gt;&lt;/b&gt;/100&lt;/div&gt;
+    &lt;div class=&quot;stat&quot;&gt;골드 &lt;b id=&quot;gold&quot;&gt;&lt;/b&gt; · 포션 &lt;b id=&quot;potion&quot;&gt;&lt;/b&gt;&lt;/div&gt;
+    &lt;div class=&quot;stat&quot;&gt;HP &lt;b id=&quot;hp&quot;&gt;&lt;/b&gt;/&lt;b id=&quot;mhp&quot;&gt;&lt;/b&gt;&lt;div class=&quot;bar&quot;&gt;&lt;i id=&quot;hpb&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;stat&quot;&gt;MP &lt;b id=&quot;mp&quot;&gt;&lt;/b&gt;/30&lt;div class=&quot;bar&quot;&gt;&lt;i id=&quot;mpb&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;card&quot;&gt;
+  &lt;p id=&quot;state&quot; role=&quot;status&quot;&gt;&lt;/p&gt;
+  &lt;div class=&quot;stat&quot;&gt;슬라임 HP &lt;b id=&quot;ehp&quot;&gt;&lt;/b&gt;/60&lt;div class=&quot;bar e&quot;&gt;&lt;i id=&quot;ehpb&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;card&quot;&gt;
+  &lt;div class=&quot;grid&quot;&gt;
+    &lt;button id=&quot;atk&quot;&gt;공격 (10~15)&lt;/button&gt;
+    &lt;button id=&quot;skill&quot;&gt;스킬 (MP 10, 25)&lt;/button&gt;
+    &lt;button id=&quot;def&quot;&gt;방어&lt;/button&gt;
+    &lt;button id=&quot;pot&quot;&gt;포션 (HP +30)&lt;/button&gt;
+    &lt;button id=&quot;buy&quot; class=&quot;ghost&quot;&gt;포션 구매 (15G)&lt;/button&gt;
+    &lt;button id=&quot;next&quot; class=&quot;ghost&quot;&gt;새 전투 / 재시작&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;card&quot;&gt;&lt;ul id=&quot;log&quot;&gt;&lt;/ul&gt;&lt;/div&gt;
+&lt;/main&gt;
+
+&lt;script&gt;
+const $ = id =&gt; document.getElementById(id);
+let p, e, defending, over;
+
+function init(){
+  p = {lv:1, exp:0, gold:10, potion:3, hp:100, mhp:100, mp:30};
+  newBattle(true);
+}
+function newBattle(first){
+  e = {hp:60};
+  over = false;
+  if(!first &amp;&amp; p.hp &lt;= 0){ p.hp = p.mhp; p.mp = 30; }
+
+  $(&#x27;state&#x27;).textContent = &#x27;야생 슬라임이 나타났다!&#x27;;
+  if(first) $(&#x27;log&#x27;).innerHTML=&#x27;&#x27;;
+  log(&#x27;전투 시작&#x27;);
+  render();
+}
+function log(t){ const li=document.createElement(&#x27;li&#x27;); li.textContent=t; $(&#x27;log&#x27;).prepend(li); }
+function render(){
+  $(&#x27;lv&#x27;).textContent=p.lv; $(&#x27;exp&#x27;).textContent=p.exp; $(&#x27;gold&#x27;).textContent=p.gold; $(&#x27;potion&#x27;).textContent=p.potion;
+  $(&#x27;hp&#x27;).textContent=p.hp; $(&#x27;mhp&#x27;).textContent=p.mhp; $(&#x27;mp&#x27;).textContent=p.mp; $(&#x27;ehp&#x27;).textContent=e.hp;
+  $(&#x27;hpb&#x27;).style.width=Math.max(0,p.hp/p.mhp*100)+&#x27;%&#x27;;
+  $(&#x27;mpb&#x27;).style.width=Math.max(0,p.mp/30*100)+&#x27;%&#x27;;
+  $(&#x27;ehpb&#x27;).style.width=Math.max(0,e.hp/60*100)+&#x27;%&#x27;;
+}
+
+function enemyTurn(){
+  let dmg = 8 + Math.floor(Math.random()*7);
+  if(defending) dmg = Math.floor(dmg/2);
+  p.hp -= dmg;
+  log(&#x27;슬라임의 공격! &#x27;+dmg+&#x27; 피해&#x27;);
+  if(p.hp &lt;= 0){ $(&#x27;state&#x27;).textContent=&#x27;패배...&#x27;; log(&#x27;패배했습니다.&#x27;); over = true; }
+}
+
+function checkWin(){
+  if(e.hp &lt;= 0){
+    $(&#x27;state&#x27;).textContent=&#x27;승리!&#x27;;
+    p.gold += 20; p.exp += 30;
+    log(&#x27;슬라임 처치! 골드 +20, EXP +30&#x27;);
+    if(p.exp &gt; 100){
+      p.lv++; p.exp = 0; p.mhp += 10;
+      log(&#x27;레벨 업! Lv.&#x27;+p.lv);
+    }
+    over = true;
+  }
+}
+
+function act(fn){
+  if(over){ log(&#x27;전투가 끝났습니다. 새 전투를 시작하세요.&#x27;); return; }
+  fn();
+  checkWin();
+  enemyTurn();
+  render();
+}
+
+$(&#x27;atk&#x27;).onclick = () =&gt; act(() =&gt; {
+  const d = 10 + Math.floor(Math.random()*6);
+  e.hp -= d; log(&#x27;공격! &#x27;+d+&#x27; 피해&#x27;);
+});
+$(&#x27;skill&#x27;).onclick = () =&gt; act(() =&gt; {
+  if(p.mp &lt;= 0){ log(&#x27;MP가 부족합니다.&#x27;); return; }
+  p.mp -= 10;
+  e.hp -= 20;
+  log(&#x27;스킬 발동! 25 피해&#x27;);
+});
+$(&#x27;def&#x27;).onclick = () =&gt; act(() =&gt; { defending = true; log(&#x27;방어 자세&#x27;); });
+$(&#x27;pot&#x27;).onclick = () =&gt; act(() =&gt; {
+  p.potion--;
+  p.hp += 30;
+  log(&#x27;포션 사용! HP +30&#x27;);
+});
+$(&#x27;buy&#x27;).onclick = () =&gt; {
+  if(p.gold &gt; 15){ p.gold -= 15; p.potion++; log(&#x27;포션 구매&#x27;); }
+  else log(&#x27;골드가 부족합니다.&#x27;);
+  render();
+};
+$(&#x27;next&#x27;).onclick = () =&gt; { if(p.hp &lt;= 0){ init(); } else newBattle(false); };
+
+init();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+  <iframe id="f1" title="슬라임 사냥 수정본" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, viewport-fit=cover&quot;&gt;
+&lt;title&gt;슬라임 사냥 (수정본 v2) - QA 연습용&lt;/title&gt;
+&lt;style&gt;
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#e8f1ee;--ink:#1f2d2a;--card:#fbfdfc;--accent:#1d6b5c;--warn:#b8860b;--bad:#b23a3a;--line:#b9cfc8}
+@media (prefers-color-scheme:dark){:root:not([data-theme=&quot;light&quot;]){--bg:#14201d;--ink:#e3efeb;--card:#1c2c28;--accent:#5cc4ad;--warn:#e0b341;--bad:#e27a7a;--line:#34504a}}
+:root[data-theme=&quot;dark&quot;]{--bg:#14201d;--ink:#e3efeb;--card:#1c2c28;--accent:#5cc4ad;--warn:#e0b341;--bad:#e27a7a;--line:#34504a}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:&quot;Pretendard&quot;,&quot;Noto Sans KR&quot;,&quot;Malgun Gothic&quot;,sans-serif;line-height:1.5}
+main{max-width:460px;margin:0 auto;padding:24px 16px}
+h1{font-size:1.5rem;margin:0 0 4px}
+p.sub{margin:0 0 16px;opacity:.7;font-size:.9rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat{font-size:.95rem}
+.bar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin-top:2px}
+.bar i{display:block;height:100%;background:var(--accent)}
+.bar.e i{background:var(--bad)}
+button{font:inherit;cursor:pointer;color:var(--bg);background:var(--accent);border:1px solid var(--accent);border-radius:8px;padding:8px 12px;font-weight:600}
+button.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+button:focus-visible{outline:3px solid var(--warn);outline-offset:2px}
+ul{list-style:none;margin:0;padding:0;max-height:200px;overflow-y:auto}
+li{padding:4px 0;border-bottom:1px dashed var(--line);font-size:.9rem}
+#state{font-weight:700;margin:0 0 8px}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;main&gt;
+&lt;h1&gt;슬라임 사냥&lt;/h1&gt;
+&lt;p class=&quot;sub&quot;&gt;수정본(v2)입니다. 수정 사항과 주변 기능을 회귀 테스트해 보세요.&lt;/p&gt;
+
+&lt;div class=&quot;card&quot;&gt;
+  &lt;div class=&quot;grid&quot;&gt;
+    &lt;div class=&quot;stat&quot;&gt;레벨 &lt;b id=&quot;lv&quot;&gt;&lt;/b&gt; · EXP &lt;b id=&quot;exp&quot;&gt;&lt;/b&gt;/100&lt;/div&gt;
+    &lt;div class=&quot;stat&quot;&gt;골드 &lt;b id=&quot;gold&quot;&gt;&lt;/b&gt; · 포션 &lt;b id=&quot;potion&quot;&gt;&lt;/b&gt;&lt;/div&gt;
+    &lt;div class=&quot;stat&quot;&gt;HP &lt;b id=&quot;hp&quot;&gt;&lt;/b&gt;/&lt;b id=&quot;mhp&quot;&gt;&lt;/b&gt;&lt;div class=&quot;bar&quot;&gt;&lt;i id=&quot;hpb&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;stat&quot;&gt;MP &lt;b id=&quot;mp&quot;&gt;&lt;/b&gt;/30&lt;div class=&quot;bar&quot;&gt;&lt;i id=&quot;mpb&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;card&quot;&gt;
+  &lt;p id=&quot;state&quot; role=&quot;status&quot;&gt;&lt;/p&gt;
+  &lt;div class=&quot;stat&quot;&gt;슬라임 HP &lt;b id=&quot;ehp&quot;&gt;&lt;/b&gt;/60&lt;div class=&quot;bar e&quot;&gt;&lt;i id=&quot;ehpb&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;card&quot;&gt;
+  &lt;div class=&quot;grid&quot;&gt;
+    &lt;button id=&quot;atk&quot;&gt;공격 (10~15)&lt;/button&gt;
+    &lt;button id=&quot;skill&quot;&gt;스킬 (MP 10, 25)&lt;/button&gt;
+    &lt;button id=&quot;def&quot;&gt;방어&lt;/button&gt;
+    &lt;button id=&quot;pot&quot;&gt;포션 (HP +30)&lt;/button&gt;
+    &lt;button id=&quot;buy&quot; class=&quot;ghost&quot;&gt;포션 구매 (15G)&lt;/button&gt;
+    &lt;button id=&quot;next&quot; class=&quot;ghost&quot;&gt;새 전투 / 재시작&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;card&quot;&gt;&lt;ul id=&quot;log&quot;&gt;&lt;/ul&gt;&lt;/div&gt;
+&lt;/main&gt;
+
+&lt;script&gt;
+const $ = id =&gt; document.getElementById(id);
+let p, e, defending = false, over = false;
+
+function init(){
+  p = {lv:1, exp:0, gold:10, potion:3, hp:100, mhp:100, mp:30};
+  newBattle(true);
+}
+function newBattle(first){
+  e = {hp:60};
+  over = false;
+  defending = false;
+  $(&#x27;state&#x27;).textContent = &#x27;야생 슬라임이 나타났다!&#x27;;
+  if(first) $(&#x27;log&#x27;).innerHTML = &#x27;&#x27;;
+  log(&#x27;전투 시작&#x27;);
+  render();
+}
+function log(t){ const li=document.createElement(&#x27;li&#x27;); li.textContent=t; $(&#x27;log&#x27;).prepend(li); }
+function render(){
+  $(&#x27;lv&#x27;).textContent=p.lv; $(&#x27;exp&#x27;).textContent=p.exp; $(&#x27;gold&#x27;).textContent=p.gold; $(&#x27;potion&#x27;).textContent=p.potion;
+  $(&#x27;hp&#x27;).textContent=p.hp; $(&#x27;mhp&#x27;).textContent=p.mhp; $(&#x27;mp&#x27;).textContent=p.mp; $(&#x27;ehp&#x27;).textContent=e.hp;
+  $(&#x27;hpb&#x27;).style.width=Math.min(100,Math.max(0,p.hp/p.mhp*100))+&#x27;%&#x27;;
+  $(&#x27;mpb&#x27;).style.width=Math.min(100,Math.max(0,p.mp/30*100))+&#x27;%&#x27;;
+  $(&#x27;ehpb&#x27;).style.width=Math.min(100,Math.max(0,e.hp/60*100))+&#x27;%&#x27;;
+}
+
+function enemyTurn(){
+  let dmg = 8 + Math.floor(Math.random()*7);
+  if(defending) dmg = Math.floor(dmg/2);
+  defending = false;
+  p.hp = Math.max(0, p.hp - dmg);
+  log(&#x27;슬라임의 공격! &#x27;+dmg+&#x27; 피해&#x27;);
+  if(p.hp &lt;= 0){ $(&#x27;state&#x27;).textContent=&#x27;패배...&#x27;; log(&#x27;패배했습니다.&#x27;); over = true; }
+}
+
+function checkWin(){
+  if(e.hp &lt;= 0){
+    $(&#x27;state&#x27;).textContent=&#x27;승리!&#x27;;
+    p.gold += 20; p.exp += 30;
+    log(&#x27;슬라임 처치! 골드 +20, EXP +30&#x27;);
+    if(p.exp &gt;= 100){
+      p.lv++; p.exp -= 100; p.mhp += 10;
+      log(&#x27;레벨 업! Lv.&#x27;+p.lv);
+    }
+    over = true;
+  }
+}
+
+function act(fn){
+  if(over){ log(&#x27;전투가 끝났습니다. 새 전투를 시작하세요.&#x27;); return; }
+  if(fn() === false) return;
+  checkWin();
+  if(over) return;
+  enemyTurn();
+  render();
+}
+
+$(&#x27;atk&#x27;).onclick = () =&gt; act(() =&gt; {
+  const d = 10 + Math.floor(Math.random()*6);
+  e.hp = Math.max(0, e.hp - d); log(&#x27;공격! &#x27;+d+&#x27; 피해&#x27;);
+});
+$(&#x27;skill&#x27;).onclick = () =&gt; act(() =&gt; {
+  if(p.mp &lt; 10){ log(&#x27;MP가 부족합니다.&#x27;); return false; }
+  p.mp -= 10;
+  e.hp = Math.max(0, e.hp - 25);
+  log(&#x27;스킬 발동! 25 피해&#x27;);
+});
+$(&#x27;def&#x27;).onclick = () =&gt; act(() =&gt; { defending = true; log(&#x27;방어 자세&#x27;); });
+$(&#x27;pot&#x27;).onclick = () =&gt; act(() =&gt; {
+  if(p.potion &lt;= 0){ log(&#x27;포션이 없습니다.&#x27;); return false; }
+  p.potion--;
+  p.hp = Math.min(p.mhp, p.hp + 30);
+  log(&#x27;포션 사용! HP +30&#x27;);
+});
+$(&#x27;buy&#x27;).onclick = () =&gt; {
+  if(p.gold &gt;= 15){ p.gold -= 15; p.potion++; log(&#x27;포션 구매&#x27;); }
+  else log(&#x27;골드가 부족합니다.&#x27;);
+  render();
+};
+$(&#x27;next&#x27;).onclick = () =&gt; { if(p.hp &lt;= 0){ init(); } else newBattle(false); };
+
+init();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+</div>
+<script>
+const desc = ['원본 버전: 결함이 포함된 상태입니다.', '수정 버전(v2): 원본에서 발견한 결함을 수정한 상태입니다. 회귀 테스트 대상입니다.'];
+let cur = 0;
+function show(i){
+  cur = i;
+  [0,1].forEach(n=>{
+    document.getElementById('f'+n).classList.toggle('on', n===i);
+    document.getElementById('t'+n).setAttribute('aria-selected', n===i);
+  });
+  document.getElementById('desc').textContent = desc[i];
+}
+document.getElementById('t0').onclick = ()=>show(0);
+document.getElementById('t1').onclick = ()=>show(1);
+document.getElementById('reset').onclick = ()=>{
+  const f = document.getElementById('f'+cur), s = f.srcdoc;
+  f.srcdoc = ''; f.srcdoc = s;
+};
+show(0);
+</script>
+</body>
+</html>
